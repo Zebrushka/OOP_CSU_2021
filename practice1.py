@@ -31,12 +31,6 @@ class Person:
             self.family[relation] = []
         self.family[relation].append(person)
 
-    def _get_relatives(self, relation: Relative) -> List['Person']:
-        return print(self.family[relation])
-
-    def get_parents(self) -> List['Person']:
-        return self._get_relatives(Relative.parent.value)
-
     def add_parent(self, person: 'Person') -> None:
         self.add_relative(person, Relative.parent.value)
 
@@ -52,6 +46,23 @@ class Person:
     def add_child(self, person: 'Person') -> None:
         self.add_relative(person, Relative.child.value)
 
+    def _get_relatives(self, relation: Relative) -> List['Person']:
+        return self.family[relation]
+
+    def get_parents(self) -> List['Person']:
+        return self._get_relatives(Relative.parent.value)
+
+    def get_cousin(self) -> List['Person']:
+        return self._get_relatives(Relative.cousin.value)
+
+    def get_aunt(self) -> List['Person']:
+        return self._get_relatives(Relative.aunt.value)
+
+    def get_in_law(self) -> List['Person']:
+        return self._get_relatives(Relative.in_law.value)
+
+    def get_child(self) -> List['Person']:
+        return self._get_relatives(Relative.child.value)
 
 if __name__ == '__main__':
     Sara = Person('Sara')
@@ -59,9 +70,9 @@ if __name__ == '__main__':
     Sara.add_aunt('Jack')
     Sara.add_in_law('Boris')
     Sara.add_parent('Olga')
-    Sara._get_relatives('parent')
+    Sara.get_parents()
 
     Boris = Person('Boris')
     Boris.add_child('Vika')
     Boris.add_child('Sara')
-    Boris._get_relatives('child')
+    print(Boris.get_child())
